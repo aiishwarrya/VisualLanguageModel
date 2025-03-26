@@ -1,6 +1,6 @@
 # Visual Search Using PaliGemma VLM  
 
-![image]()
+![image](https://github.com/aiishwarrya/VisualLanguageModel/blob/main/ss/image.png)
 
 ## Introduction  
 
