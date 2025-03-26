@@ -2,7 +2,7 @@
 
 ## Introduction  
 
-This project is part of the **Intel® Unnati Industrial Training 2025** initiative and is developed by **Team Raven**, consisting of **Aishwarya Joshi** and **Mahathi R**  
+This project is under the **Intel® Unnati Industrial Training 2025** initiative and is developed by **Team Raven**, consisting of **Aishwarya Joshi** and **Mahathi R**  
 
 In an era where information retrieval is dominated by text-based search engines, visual search is emerging as a transformative technology. Traditional search methods rely heavily on keyword matching, often failing to capture the **semantic intent** behind a query. This project explores **Vision-Language Models (VLMs)** to bridge this gap, enabling a more intuitive and **context-aware** search experience.  
 
