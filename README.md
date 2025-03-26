@@ -2,6 +2,8 @@
 
 ![image](https://github.com/aiishwarrya/VisualLanguageModel/blob/main/ss/image.png)
 
+---
+
 ## Introduction  
 
 This project is under the **Intel® Unnati Industrial Training 2025** initiative and is developed by **Team Raven**, consisting of **Aishwarya Joshi** and **Mahathi R**.  
@@ -44,27 +46,28 @@ This project aims to develop a **Visual Search Engine** using a **custom-built V
 
 ### 6️⃣ Deploying and Benchmarking Performance  
 - Evaluate retrieval accuracy using standard **vision-language benchmarks** and compare results against state-of-the-art **VLM models**.  
-- Fine-tune indexing and retrieval techniques for **scalability** in large datasets.  
+- Fine-tune indexing and retrieval techniques for **scalability** in large datasets.
 
-## Why This Approach?  
+---
 
-Building a **custom Vision-Language Model (VLM)** allows us to optimize performance beyond existing architectures. While models like **CLIP and PaliGemma** provide strong foundations, our approach integrates **SigLip instead of CLIP**, enhancing **contrastive learning stability and efficiency**.  
+## Approach taken and Why?
 
-The model consists of two main components:  
-- **A Vision Transformer (ViT):** Extracts features from images efficiently.  
-- **A decoder-only language model:** Generates and understands text based on visual inputs.  
+To build a **Visual-Language Model (VLM)** that understands both text and images, we use **contrastive learning**—a method that trains the model to pull matching image-text pairs closer while pushing mismatched ones apart. This allows the model to build a **shared semantic space** where similar concepts are aligned, even if they come from different modalities.
 
-One of the key innovations in our approach is **SigLip**, which enhances **contrastive learning** by stabilizing softmax-based similarity calculations. This results in **better training stability** and improved image-text matching.  
+### Why Contrastive Learning?  
+Traditional supervised learning struggles to capture the **relationships** between text and images since they exist in different representational spaces. Contrastive learning solves this by ensuring:  
 
-Additionally, **Grouped Query Attention (GQA)** reduces computational overhead while maintaining accuracy, and **KV-Cache** enables efficient inference by reusing past computations instead of recalculating them for every new token.  
+- **Semantic Alignment**: Text and images with similar meanings have closer embeddings.  
+- **Zero-Shot Learning Capability**: Once trained on diverse data, the model generalizes to unseen text-image pairs without retraining.  
+- **Better Representation Learning**: Unlike simple classification, contrastive learning teaches the model to understand nuanced relationships.  
 
-###  Key Advantages  
+### Implementation in Our Model  
+Instead of using **CLIP**, which has known issues with numerical stability in the **Softmax function**, we implement **SigLip**, an improved contrastive learning technique.  
 
-- **SigLip for Stability** - Replaces CLIP’s contrastive learning with a more numerically stable approach, leading to more reliable training and image-text alignment.  
+- **SigLip optimizes Softmax behavior**, preventing gradient explosion and ensuring stable training.  
+- **We train on large-scale image-text pairs**, embedding them in a unified space for robust retrieval.  
+- **The model is optimized using normalized temperature scaling**, improving convergence speed and accuracy.
 
-- **Efficient Attention Mechanisms** - Uses Grouped Query Attention (GQA) to speed up computations and reduce memory requirements while maintaining accuracy.  
+With a well-trained contrastive learning backbone, our VLM can match queries with the most relevant images, making visual search highly effective.  
 
-- **Optimized Inference with KV-Cache** - Stores key-value pairs to avoid redundant calculations, making inference faster and more efficient.  
-
-This custom-built **VLM** is designed to be **lightweight, scalable, and efficient**, making it practical for real-world applications where traditional VLMs would require extensive computational resources.
-
+---
