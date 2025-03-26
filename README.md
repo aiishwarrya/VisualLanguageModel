@@ -71,3 +71,31 @@ Instead of using **CLIP**, which has known issues with numerical stability in th
 With a well-trained contrastive learning backbone, our VLM can match queries with the most relevant images, making visual search highly effective.  
 
 ---
+
+## **Vision Transformer (ViT): How Our Model Sees Images**  
+
+To make sense of images, our Vision-Language Model (VLM) needs a **Vision Transformer (ViT)**—a deep learning architecture that encodes images into numerical representations. Instead of analyzing images pixel by pixel, **ViT divides them into smaller patches and processes them like a sequence**, similar to how transformers handle text.  
+
+### **Why Vision Transformers?**  
+Unlike CNNs (Convolutional Neural Networks), which focus on local patterns, ViTs learn **global relationships** within an image using **self-attention mechanisms**. This allows our model to:  
+✅ Capture **long-range dependencies** between different parts of an image.  
+✅ Learn **contextual relationships** instead of just edges, textures, or colors.  
+✅ Align image representations with text embeddings for **better contrastive learning**.  
+
+### **How It Works in Our VLM**  
+1️. **Image Patching** → The input image is split into fixed-size patches (e.g., 16×16 pixels).  
+2️. **Linear Embedding** → Each patch is converted into a numerical vector using a learnable linear projection.  
+3️. **Position Encoding** → Since transformers don’t inherently understand spatial relationships, we add **Rotary Positional Encoding (RoPE)** to retain the structure of the image.  
+4️. **Self-Attention** → The model applies **multi-head self-attention**, allowing it to compare patches and **understand their relationships** within the image.  
+5️. **Final Image Representation** → The output is a **compressed numerical representation of the image**, which can now be aligned with text using **contrastive learning**.  
+
+## **Contrastive Learning: Why We Use SigLip Instead of CLIP**  
+Our VLM trains its vision encoder using **contrastive learning**, where paired **image-text** data is used to bring matching pairs closer in embedding space while pushing non-matching pairs apart.  
+- CLIP originally introduced contrastive learning for vision-language tasks.  
+- **We use SigLip instead of CLIP** because it improves the **numerical stability** of the Softmax function, preventing gradient explosion and leading to more **robust training**.  
+- SigLip enhances the alignment of **image and text embeddings**, making visual search more **accurate and efficient**.  
+
+### **Implementation Breakdown**  
+- **Coding SigLip’s Vision Encoder** → We implement the **ViT-based encoder** optimized for contrastive learning.  
+- **Applying Normalization** → We integrate **BatchNorm, LayerNorm, and RMSNorm** to ensure stable training.  
+- **Using RoPE** → We apply **Rotary Positional Encoding** to help the model understand spatial relationships within the image.  
