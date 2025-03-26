@@ -8,7 +8,7 @@ In an era where information retrieval is dominated by text-based search engines,
 
 We are building a **visual search engine** powered by **PaliGemma**, a state-of-the-art **VLM** that aligns visual and textual representations in a shared embedding space. By leveraging contrastive learning and advanced deep learning architectures, this model enables users to perform searches using both **text and images**, making retrieval significantly more accurate and flexible.  
 
-## Key Features  
+### Key Features  
 
 - **Text-to-Image Search**: Retrieve images based on natural language descriptions.  
 - **Image-to-Image Search**: Find visually similar images from a dataset.  
@@ -16,7 +16,7 @@ We are building a **visual search engine** powered by **PaliGemma**, a state-of-
 - **Contextual Understanding**: Moves beyond keyword dependency to capture **semantic meaning**.  
 - **Efficient Indexing**: Utilizes optimized retrieval techniques for large-scale datasets.
 
-## Why Visual Search?  
+### Why Visual Search?  
 
 Traditional search engines struggle with queries that require **contextual reasoning** beyond simple keyword matches. Visual search, powered by **contrastive learning** and **transformers**, allows AI models to **understand** concepts rather than just matching strings. This makes it highly effective in applications like:  
 
