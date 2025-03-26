@@ -8,7 +8,6 @@ In an era where information retrieval is dominated by text-based search engines,
 
 We are building a **visual search engine** powered by **PaliGemma**, a state-of-the-art **VLM** that aligns visual and textual representations in a shared embedding space. By leveraging contrastive learning and advanced deep learning architectures, this model enables users to perform searches using both **text and images**, making retrieval significantly more accurate and flexible.  
 
-
 ## Key Features  
 
 - **Text-to-Image Search**: Retrieve images based on natural language descriptions.  
@@ -16,7 +15,6 @@ We are building a **visual search engine** powered by **PaliGemma**, a state-of-
 - **Hybrid Querying**: Combine text and images for enhanced search precision.  
 - **Contextual Understanding**: Moves beyond keyword dependency to capture **semantic meaning**.  
 - **Efficient Indexing**: Utilizes optimized retrieval techniques for large-scale datasets.
-
 
 ## Why Visual Search?  
 
@@ -54,6 +52,29 @@ This project aims to develop a **Visual Search Engine** using **PaliGemma**, lev
 
 ### 6️⃣ Deploying and Benchmarking Performance  
 - Evaluate retrieval accuracy using standard **vision-language benchmarks** and compare results against state-of-the-art **VLM models**.  
-- Fine-tune indexing and retrieval techniques for **scalability** in large datasets.  
+- Fine-tune indexing and retrieval techniques for **scalability** in large datasets.
+
+## Why PaliGemma?  
+
+PaliGemma is a **Vision-Language Model (VLM)** designed to improve how AI processes and understands images and text together. It builds on existing models like CLIP but addresses their limitations by improving **contrastive learning, vision encoding, and text generation**.  
+
+The model consists of two main parts:  
+- **A Vision Transformer (ViT):** Extracts features from images efficiently.  
+- **A decoder-only language model (Gemma):** Generates and understands text based on visual inputs.  
+
+One of its key innovations is **SigLip**, which enhances the **contrastive learning process** by stabilizing softmax-based similarity calculations. This leads to **better training stability** and improved image-text matching.  
+
+Additionally, **Grouped Query Attention (GQA)** reduces computational overhead while maintaining accuracy, and **KV-Cache** enables efficient inference by reusing past computations instead of recalculating them for every new token.  
+
+### Key Advantages  
+
+- **SigLip for Stability** - Enhances contrastive learning by improving softmax behavior, leading to more stable training and better image-text alignment.  
+
+- **Efficient Attention Mechanisms** - Uses Grouped Query Attention (GQA) to speed up computations and reduce memory requirements while maintaining accuracy.  
+
+- **Optimized Inference with KV-Cache** - Stores key-value pairs to avoid redundant calculations, making inference faster and more efficient.  
+
+PaliGemma is designed to be **lightweight, scalable, and efficient**, making it practical for real-world applications where traditional VLMs would require extensive computational resources.  
+
 
 
