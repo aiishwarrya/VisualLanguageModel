@@ -157,9 +157,7 @@ We experiment with several types of normalization and select the best one based 
 - Enables higher learning rates, leading to faster convergence  
 - Improves generalization on unseen image-text pairs
 
----
-
-## **Normalization Methods We Explored**
+### **Normalization Methods We Explored**
 
 1. **Batch Normalization (BatchNorm)**  
    - Normalizes across the batch dimension  
