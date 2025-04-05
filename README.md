@@ -6,6 +6,7 @@
 
 ![image](https://github.com/aiishwarrya/VisualLanguageModel/blob/main/ss/image.png)
 
+<div align="justify">
 
 ## Introduction  
 
@@ -357,7 +358,7 @@ Finally, the model returns a natural language output — this could be:
 - Or a phrase relevant to search or retrieval
 ---
 
-
+</div>
 
 
 
