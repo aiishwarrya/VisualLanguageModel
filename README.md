@@ -331,7 +331,7 @@ Here’s a **flow diagram** that visualizes the full architecture of our system:
   <img src="https://github.com/aiishwarrya/VisualLanguageModel/blob/main/ss/flowdiagram.png">
 </p>
 
-### 🔹 **1. Image Input**
+### 🟡 **1. Image Input**
 The process starts with a raw image. This image is divided into **fixed-size patches** (e.g., 16×16 pixels), which are treated as tokens — similar to words in a sentence.
 
 ### 🔵 **2. Vision Encoder (ViT)**  
