@@ -143,6 +143,53 @@ Transformers typically recompute attention for every previous token during infer
 - **KV-Cache Integration** → Saves and reuses past key-value states for efficient inference  
 - **RMSNorm** → We use **RMS normalization** across the model, following best practices from Gemma for stability and efficiency
 
+---
+
+## **Normalization Techniques: Making Training Stable and Efficient**
+
+This section will explain how we stabilize training and improve generalization using normalization layers. Since we're dealing with deep transformer stacks (both in the encoder and decoder), normalization plays a key role in keeping gradients stable, preventing exploding/vanishing activations, and accelerating convergence.
+In large models like ours, especially those with deep transformer layers, **normalization is essential**. It ensures that the scale of intermediate activations stays manageable and helps the model converge faster and more reliably during training.
+We experiment with several types of normalization and select the best one based on stability, speed, and compatibility with our lightweight architecture.
+
+### **Why Normalization Matters**
+- Helps stabilize gradients during backpropagation  
+- Prevents vanishing or exploding activations in deep models  
+- Enables higher learning rates, leading to faster convergence  
+- Improves generalization on unseen image-text pairs
+
+---
+
+## **Normalization Methods We Explored**
+
+1. **Batch Normalization (BatchNorm)**  
+   - Normalizes across the batch dimension  
+   - Works well in convolutional architectures  
+   - Not ideal for variable-length sequences or transformer-based models  
+2. **Layer Normalization (LayerNorm)**  
+   - Normalizes across the features of a single token  
+   - Common in standard transformer architectures  
+   - Sensitive to initialization and may require careful tuning  
+3. **RMS Normalization (RMSNorm)**  
+   - A simpler variant of LayerNorm that only scales inputs based on their root-mean-square  
+   - No bias term, fewer parameters  
+   - Works well with lightweight transformers (e.g., Gemma)  
+   - Chosen for our VLM due to better empirical stability and speed
+   
+### **Why We Chose RMSNorm**
+
+- Empirically more stable in our decoder-based language model  
+- Reduces computational complexity by removing the bias and mean subtraction steps  
+- Keeps memory and parameter usage low — a good fit for our lightweight VLM  
+- Compatible with other techniques like KV-Cache and Rotary Positional Encoding
+
+### **Implementation Highlights**
+
+- RMSNorm is applied **after attention and feedforward layers** in both vision and language stacks  
+- We keep normalization placement consistent to ensure predictable training behavior  
+- Our implementation is modular, allowing easy switching between normalization types for experimentation
+
+---
+
 
 
 
