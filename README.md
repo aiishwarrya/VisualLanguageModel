@@ -264,6 +264,58 @@ We implement Top-p Sampling as the final step in our decoding loop:
 
 This process repeats for each generated token until an end token is reached or a maximum length is met.
 
+---
+
+## **Final Inference Pipeline: How Our VLM Processes Image & Text Queries**
+
+Now that all the components of our Vision-Language Model (VLM) are in place — from the Vision Transformer (ViT) and contrastive learning with SigLip, to the transformer-based language decoder and optimized inference — it's time to bring everything together.
+This section explains how the full inference pipeline works when a user submits either an image or a textual query. This is the **engine room** of our visual search system.
+
+### **Step-by-Step: From Input to Output**
+
+When the model receives an input (image or text), here’s what happens behind the scenes:
+
+#### 1. **Input Processing**  
+- **For image queries**, the Vision Transformer (ViT) converts the image into a dense embedding using patching and self-attention.  
+- **For text queries**, the language model tokenizes and embeds the text.
+
+#### 2. **Embedding Alignment**  
+Both types of inputs (image and text) are mapped into the same **shared multimodal embedding space**. This ensures that semantically similar images and texts are close together — a critical feature for **visual search**.
+
+#### 3. **Similarity Computation**  
+We compute the **cosine similarity** between the query embedding and all embeddings in the database (which could be images or text). This determines how closely the query matches existing items.
+
+#### 4. **Retrieval or Generation**  
+- If it’s a **search task**, the top-k most similar items are retrieved and returned.  
+- If it’s a **captioning or generation task**, the language model uses **causal decoding** with **KV-cache** and **top-p sampling** to generate descriptive text based on the input.
+
+---
+
+## **Putting It All Together**
+
+At this point, our VLM acts like a complete **multimodal engine**. Here's a high-level overview of how it functions:
+
+| Component         | Role in Inference Pipeline                            |
+|------------------|--------------------------------------------------------|
+| Vision Transformer (ViT) | Converts images into dense embeddings              |
+| SigLip (Contrastive Learning) | Ensures image-text alignment in shared space    |
+| Transformer Decoder | Generates or interprets text using embeddings         |
+| KV-Cache + RoPE  | Speeds up inference and preserves token order          |
+| Cosine Similarity | Matches queries to database items                      |
+
+
+### **Example Use Cases**
+
+- **Text-to-Image Search**: "Find me an image of a red sports car"  
+→ Model encodes the text and retrieves visually similar images.
+- **Image-to-Text Search**: Upload an image of a city skyline  
+→ Model encodes the image and retrieves related text captions or similar images.
+- **Image Captioning**: Upload a photo  
+→ Model generates a caption using the language decoder.
+
+---
+
+
 
 
 
