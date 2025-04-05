@@ -316,8 +316,9 @@ At this point, our VLM acts like a complete **multimodal engine**. Here's a high
 ---
 
 ## **Conclusion: Wrapping Up Our Vision-Language Model**
+
 <p align="center">
-  <img src="https://github.com/aiishwarrya/VisualLanguageModel/blob/main/ss/flowdiagram.png>
+  <img src="https://github.com/aiishwarrya/VisualLanguageModel/blob/main/ss/top%20-p.png?raw=true" width="400" height="600">
 </p>
 
 In this project, we set out to build our own Vision-Language Model (VLM) capable of interpreting images and generating meaningful textual descriptions. Rather than using existing frameworks as-is, we implemented and optimized core components from scratch, drawing inspiration from models like PaliGemma and SigLip — but with our own twist.
