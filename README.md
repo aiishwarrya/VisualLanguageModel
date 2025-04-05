@@ -315,6 +315,39 @@ At this point, our VLM acts like a complete **multimodal engine**. Here's a high
 
 ---
 
+## **Conclusion: Wrapping Up Our Vision-Language Model**
+<p align="center">
+  <img src="https://github.com/aiishwarrya/VisualLanguageModel/blob/main/ss/flowdiagram.png>
+</p>
+
+In this project, we set out to build our own Vision-Language Model (VLM) capable of interpreting images and generating meaningful textual descriptions. Rather than using existing frameworks as-is, we implemented and optimized core components from scratch, drawing inspiration from models like PaliGemma and SigLip — but with our own twist.
+
+At the heart of our VLM lies a **Vision Transformer (ViT)**, which encodes visual inputs into a format that our **decoder-only transformer** can understand. We used **SigLip for contrastive learning**, which helped us align vision and language embeddings effectively. On the language side, we incorporated a **causal decoder with attention**, enhanced by **Key-Value Caching** and **Rotary Positional Embeddings** to make inference faster and more efficient.
+
+From tokenization and patch embeddings to self-attention and sampling techniques, every component was carefully designed to ensure that the system can generate coherent, contextually accurate text outputs based on image queries.
+
+
+→ **What We’ve Learned and Built**
+
+- Built a **ViT-based image encoder** from scratch, capable of patching, embedding, and self-attention.
+- Implemented **SigLip-style contrastive learning** for better alignment of image-text pairs.
+- Developed a **lightweight transformer decoder** for text generation, with optimizations like KV-cache and Top-p Sampling.
+- Integrated **normalization techniques** such as RMSNorm to stabilize training and improve generalization.
+- Combined all components into a full **inference pipeline** that powers a functional visual search or image captioning engine.
+
+
+→ **What’s Next?**
+
+There’s plenty of room for improvements and experimentation. Some possible future directions:
+
+- Add support for **bidirectional attention** to enhance reasoning tasks like question answering.
+- Experiment with larger transformer depths or hybrid encoders to boost performance.
+- Add **image segmentation or object detection** for richer visual understanding.
+- Extend the model to support **multilingual captioning** or **video inputs**.
+
+---
+
+
 
 
 
