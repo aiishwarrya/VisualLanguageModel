@@ -98,4 +98,51 @@ Our VLM trains its vision encoder using **contrastive learning**, where paired *
 ### **Implementation Breakdown**  
 - **Coding SigLip’s Vision Encoder** → We implement the **ViT-based encoder** optimized for contrastive learning.  
 - **Applying Normalization** → We integrate **BatchNorm, LayerNorm, and RMSNorm** to ensure stable training.  
-- **Using RoPE** → We apply **Rotary Positional Encoding** to help the model understand spatial relationships within the image.  
+- **Using RoPE** → We apply **Rotary Positional Encoding** to help the model understand spatial relationships within the image.
+
+---
+
+## **Language Model: How Our VLM Understands Text and Generates Meaning**
+
+While the Vision Transformer (ViT) helps our model understand images, we also need a **language model** to interpret text and generate meaningful responses. In our implementation, we use a **decoder-based transformer**, which enables the VLM to produce context-aware outputs from image embeddings, including captions, search queries, or related textual results.
+
+### **Why Do We Need a Language Model?**
+
+- It **interprets the image embeddings** produced by the vision encoder and grounds them in natural language.  
+- It enables the model to **generate coherent text**, allowing image captioning, Q&A, or visual search.  
+- It helps **align multimodal embeddings** by unifying vision and language features into a shared space.
+
+## **Our Choice: A Lightweight Decoder-Only Transformer**
+
+We implement a **lightweight, decoder-only transformer** inspired by open models like **Gemma**, adapted for multimodal learning:
+
+- It is efficient and scalable, suitable for both research and real-world use.  
+- It uses **causal self-attention**, ensuring the output depends only on previously seen tokens.  
+- It supports **Key-Value Caching (KV-Cache)** to reduce redundant computations during inference.
+
+### **How It Works in Our VLM**
+
+1️. **Text Tokenization** → The input text (or image-derived caption) is converted into token IDs and embedded into vectors.  
+2️. **Causal Self-Attention** → Multi-head attention is used to learn dependencies between tokens, respecting their sequence order.  
+3️. **Feedforward Network (FFN)** → Each transformer block uses FFNs to refine the representations from the attention layer.  
+4️. **Cross-Modal Integration** → Vision encoder outputs are injected into the language decoder to merge visual and textual context.  
+5️. **Text Output Generation** → After several decoding layers, the final embeddings are projected back to vocabulary space to generate text.
+
+## **KV-Cache: Making Inference Faster**
+
+Transformers typically recompute attention for every previous token during inference, which becomes costly in long sequences.  
+**Key-Value Caching (KV-Cache)** resolves this by storing the key and value matrices from earlier steps:
+
+- Reduces redundant calculations during decoding  
+- Speeds up inference significantly, especially in large-scale retrieval tasks  
+- Allows real-time response in visual search applications
+
+### **Implementation Breakdown**
+
+- **Decoder Transformer Stack** → A causal transformer with multi-head attention, FFNs, and token embeddings  
+- **KV-Cache Integration** → Saves and reuses past key-value states for efficient inference  
+- **RMSNorm** → We use **RMS normalization** across the model, following best practices from Gemma for stability and efficiency
+
+
+
+
