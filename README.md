@@ -188,6 +188,29 @@ We experiment with several types of normalization and select the best one based 
 
 ---
 
+## **Rotary Positional Encoding (RoPE): How Our Model Understands Order**
+
+Transformers, by design, are unaware of the order of their inputs. Whether it's a sequence of words or a set of image patches, they treat each element independently unless explicitly told otherwise. But in both language and vision tasks, **order matters** — the structure of a sentence, the layout of objects in an image, or even the timing of events in a video all rely on sequence.
+
+To bridge this gap, models use **positional encoding** — a method for injecting information about the relative or absolute position of tokens into the model. In our VLM, we use a technique called **Rotary Positional Encoding (RoPE)**, which introduces this ordering in a more elegant and computationally stable way than traditional methods.
+
+- ### **Why We Chose RoPE Over Other Techniques**
+
+Traditional positional encodings, like sinusoidal or learnable embeddings, represent position in an absolute sense — token 3 is "here", token 4 is "there", and so on. This works, but it doesn't help the model understand how far apart two tokens are or how their relative positions impact meaning. RoPE takes a different approach by applying **rotations in complex space** to the attention mechanism itself, allowing the model to encode relative positions directly into the **query and key vectors** of self-attention.
+
+This method is not only **parameter-free** (it doesn't require extra learned weights), but it’s also **compatible with inference optimizations** like **KV-Cache**, which is crucial for speeding up generation. That makes RoPE a natural fit for our lightweight, fast, and scalable architecture.
+
+- ### **How Rotary Encoding Works in Practice**
+
+Instead of using a separate embedding layer to encode position, RoPE modifies the attention mechanism directly. It applies a mathematically defined rotation to each vector in a way that subtly alters how the model perceives spatial or sequential relationships. These rotations help the model capture **how far apart** two tokens or image patches are, and how their relative position affects their meaning or interaction.
+
+In our architecture, we integrate RoPE in both the **Vision Transformer (ViT)** and the **decoder-only language model**, ensuring that both image and text modalities carry a strong sense of order and structure throughout the pipeline.
+
+### **Summary**
+
+By using RoPE, our VLM gains the ability to understand not just what elements are in an image or sentence, but also how those elements are arranged. This helps improve alignment between visual and textual representations, which is essential for tasks like **captioning**, **semantic search**, or **image-text retrieval**. It’s a small change in architecture — but one that makes a big impact on performance and coherence.
+
+
 
 
 
