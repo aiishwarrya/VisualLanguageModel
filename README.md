@@ -317,35 +317,44 @@ At this point, our VLM acts like a complete **multimodal engine**. Here's a high
 
 ## **Conclusion: Wrapping Up Our Vision-Language Model**
 
+Our Vision-Language Model (VLM) is designed to perform **image-to-text tasks** — specifically, **recognizing visual inputs and generating natural language descriptions**. From processing image patches with a Vision Transformer (ViT), aligning visual and textual embeddings through **SigLip-style contrastive learning**, and decoding responses using a **lightweight language model**, each part of our architecture is built for **efficiency, alignment, and clarity**.
+Whether it's for visual search, caption generation, or semantic image understanding, our custom VLM ties together recent advances in transformer-based modeling while retaining simplicity and flexibility.
+
+## **📊 End-to-End VLM Architecture**
+
+Here’s a **flow diagram** that visualizes the full architecture of our system:
+
 <p align="center">
-  <img src="https://github.com/aiishwarrya/VisualLanguageModel/blob/main/ss/top%20-p.png?raw=true" width="400" height="600">
+  <img src="https://github.com/aiishwarrya/VisualLanguageModel/blob/main/ss/flowdiagram.png">
 </p>
 
-In this project, we set out to build our own Vision-Language Model (VLM) capable of interpreting images and generating meaningful textual descriptions. Rather than using existing frameworks as-is, we implemented and optimized core components from scratch, drawing inspiration from models like PaliGemma and SigLip — but with our own twist.
+### 🔹 **1. Image Input**
+The process starts with a raw image. This image is divided into **fixed-size patches** (e.g., 16×16 pixels), which are treated as tokens — similar to words in a sentence.
 
-At the heart of our VLM lies a **Vision Transformer (ViT)**, which encodes visual inputs into a format that our **decoder-only transformer** can understand. We used **SigLip for contrastive learning**, which helped us align vision and language embeddings effectively. On the language side, we incorporated a **causal decoder with attention**, enhanced by **Key-Value Caching** and **Rotary Positional Embeddings** to make inference faster and more efficient.
+### 🔵 **2. Vision Encoder (ViT)**  
+The **Vision Transformer (ViT)** takes these image patches and converts them into high-dimensional embeddings.  
+- We use **Rotary Positional Encoding** so that the model retains spatial information.
+- **Multi-head Self-Attention** helps the encoder understand relationships between different image regions.
+- The final output is a **compact embedding** representing the full image's content.
 
-From tokenization and patch embeddings to self-attention and sampling techniques, every component was carefully designed to ensure that the system can generate coherent, contextually accurate text outputs based on image queries.
+### 🟠 **3. Contrastive Learning with SigLip**  
+During training, we use **SigLip** (a variant of CLIP) to align image embeddings and text embeddings.  
+- Positive image-text pairs are pulled closer in the shared embedding space.  
+- Negative (mismatched) pairs are pushed apart.  
+- SigLip improves training stability through a more numerically stable Softmax.
 
-
-→ **What We’ve Learned and Built**
-
-- Built a **ViT-based image encoder** from scratch, capable of patching, embedding, and self-attention.
-- Implemented **SigLip-style contrastive learning** for better alignment of image-text pairs.
-- Developed a **lightweight transformer decoder** for text generation, with optimizations like KV-cache and Top-p Sampling.
-- Integrated **normalization techniques** such as RMSNorm to stabilize training and improve generalization.
-- Combined all components into a full **inference pipeline** that powers a functional visual search or image captioning engine.
-
-
-→ **What’s Next?**
-
-There’s plenty of room for improvements and experimentation. Some possible future directions:
-
-- Add support for **bidirectional attention** to enhance reasoning tasks like question answering.
-- Experiment with larger transformer depths or hybrid encoders to boost performance.
-- Add **image segmentation or object detection** for richer visual understanding.
-- Extend the model to support **multilingual captioning** or **video inputs**.
-
+### 🟣 **4. Text Decoder (Language Model)**  
+The visual embedding from ViT is passed to a **decoder-only transformer** (inspired by Gemma) which generates the output text.
+- Uses **Causal Self-Attention** to generate one word at a time, based on prior context.
+- **Key-Value Caching (KV-Cache)** is applied to speed up inference by reusing previous attention computations.
+- Outputs a human-readable **caption**, **description**, or **semantic interpretation** of the input image.
+  
+### 🟡 **5. Output**  
+Finally, the model returns a natural language output — this could be:
+- An image caption
+- A textual description
+- A keyword summary
+- Or a phrase relevant to search or retrieval
 ---
 
 
