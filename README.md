@@ -8,6 +8,8 @@
 
 <div align="justify">
 
+---
+
 ## Introduction  
 
 This project is under the **Intel® Unnati Industrial Training 2025** initiative and is developed by **Team Raven**, consisting of **Aishwarya Joshi** and **Mahathi R**.  
