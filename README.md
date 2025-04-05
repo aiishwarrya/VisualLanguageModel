@@ -1,8 +1,11 @@
-<h1 style="text-align: center;">Visual Search Using Vision-Language Models</h1>
+<div align="center">
+
+  <h1>Visual Search Using Vision-Language Models</h1>
+
+</div>
 
 ![image](https://github.com/aiishwarrya/VisualLanguageModel/blob/main/ss/image.png)
 
----
 
 ## Introduction  
 
