@@ -210,6 +210,54 @@ In our architecture, we integrate RoPE in both the **Vision Transformer (ViT)** 
 
 By using RoPE, our VLM gains the ability to understand not just what elements are in an image or sentence, but also how those elements are arranged. This helps improve alignment between visual and textual representations, which is essential for tasks like **captioning**, **semantic search**, or **image-text retrieval**. It’s a small change in architecture — but one that makes a big impact on performance and coherence.
 
+---
+
+## **Top-p Sampling: How Our VLM Generates Meaningful Output**
+
+Once our model has aligned visual and textual features, processed the inputs, and built rich embeddings, it’s time to generate actual text — whether it’s a caption, a search query, or a response. But choosing the next word isn’t just about picking the one with the highest probability. That approach often leads to **repetitive or bland outputs**.
+
+To make the output **more diverse yet coherent**, we use a technique called **Top-p Sampling**, also known as **nucleus sampling**.
+
+- ### **Why Top-p Sampling?**
+
+Language models usually output a probability distribution over the vocabulary at each step. Instead of always picking the most likely word (as in greedy decoding), Top-p Sampling introduces **controlled randomness**:
+
+- It selects from the **smallest possible set of tokens** whose **cumulative probability exceeds a threshold _p_** (e.g., 0.9).
+- This dynamic cutoff ensures that **rare but contextually appropriate words still have a chance to be selected**, improving fluency and diversity.
+- It avoids issues like repetition or overly safe outputs, which are common in greedy or top-k sampling methods.
+  
+### **How It Works in Our VLM**
+
+Here’s a simplified breakdown of what happens during generation:
+
+1. The model processes the input (image and/or text).
+2. It outputs a probability distribution over possible next tokens.
+3. The tokens are sorted by probability.
+4. The model keeps the top tokens whose combined probability is ≥ _p_ (say, 90%).
+5. One token is then randomly sampled from this **nucleus**.
+
+This method ensures **contextual diversity without losing coherence** — ideal for a visual search engine that needs to generate accurate yet natural-sounding responses.
+
+- ### **Why Not Top-k Sampling?**
+
+Top-k sampling keeps the top _k_ tokens regardless of their cumulative probability. That can lead to:
+- Fixed-size candidate pools that sometimes ignore context.
+- Missing out on high-probability rare words that lie just outside the top _k_.
+Top-p is more adaptive — the size of the candidate pool changes based on how confident the model is, which helps in **multimodal settings** where context richness varies from image to image.
+
+### **Implementation Details**
+
+We implement Top-p Sampling as the final step in our decoding loop:
+
+- After computing token probabilities using the decoder’s output logits, we:
+  - Sort tokens by probability.
+  - Compute cumulative probabilities.
+  - Select the smallest set of tokens exceeding our threshold (_p_).
+  - Sample the next token from this nucleus.
+
+This process repeats for each generated token until an end token is reached or a maximum length is met.
+
+
 
 
 
