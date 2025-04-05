@@ -214,7 +214,9 @@ By using RoPE, our VLM gains the ability to understand not just what elements ar
 
 ## **Top-p Sampling: How Our VLM Generates Meaningful Output**
 
-![image](https://github.com/aiishwarrya/VisualLanguageModel/blob/main/ss/top%20-p.png)
+<p align="center">
+  <img src="https://github.com/aiishwarrya/VisualLanguageModel/blob/main/ss/top%20-p.png?raw=true" width="400" height="600">
+</p>
 
 Once our model has aligned visual and textual features, processed the inputs, and built rich embeddings, it’s time to generate actual text — whether it’s a caption, a search query, or a response. But choosing the next word isn’t just about picking the one with the highest probability. That approach often leads to **repetitive or bland outputs**.
 
